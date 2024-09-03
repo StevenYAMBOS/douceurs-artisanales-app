@@ -4,11 +4,13 @@
 </script>
 
 <footer>
+  
 </footer>
 
 <style>
 
 footer {
   width: 100%;
+  background-color: blue;
 }
 </style>

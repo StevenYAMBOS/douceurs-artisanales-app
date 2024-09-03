@@ -1,6 +1,6 @@
 <!-- src/lib/components/NavBar.svelte -->
 
-<script>
+<script lang="ts">
   let isMenuOpen = false;
 
   function toggleMenu() {
@@ -30,12 +30,20 @@
   <div class="nav-buttons" class:open={isMenuOpen}>
     <!-- Bouton thèmes -->
     <div class="nav-button">
-      <button id="theme-button">Theme</button>
+      <div id="theme-button">
+        <span class="material-symbols-outlined">
+          light_mode
+          </span>
+      </div>
     </div>
 
     <!-- Bouton connexion -->
     <div class="nav-button">
-      <button id="auth-button">Connexion</button>
+      <a href="/login" id="auth-button">
+          <span class="material-symbols-outlined">
+            person
+            </span>
+      </a>
     </div>
   </div>
 </nav>
@@ -43,11 +51,13 @@
 <style>
   nav {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: transparent;
+    background-color: #f3eae4;
     padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
   }
 
   .logo-wrapper {
@@ -65,20 +75,34 @@
   .burger-menu .line {
     width: 25px;
     height: 3px;
-    background-color: white;
+    background-color: #372221;
   }
 
   .nav-buttons {
-    display: flex;
     gap: 20px;
+    display: flex;
+    align-items: center;
   }
 
   .nav-button {
     margin-left: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #372221;
   }
 
   #logo {
     width: 30px;
+    cursor: pointer;
+  }
+
+  #auth-button {
+    color: #372221;
+    text-decoration: none;
+  }
+  #auth-button:hover {
+    opacity: 0.9;
   }
 
   /* Responsive styles */
