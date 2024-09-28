@@ -1,14 +1,24 @@
-<!-- src/routes/+layout.svelte -->
-<script>
-  import Header from "$lib/components/Header.svelte";
+<script lang="ts">
+  import { page } from "$app/stores";
   import Footer from "$lib/components/Footer.svelte";
+  import NavBar from "$lib/components/NavBar.svelte";
+  import "../global.css";
+
+  $: isLoginPage = $page.url.pathname.startsWith("/login");
+  $: isRegisterPage = $page.url.pathname.startsWith("/register");
 </script>
 
-<Header></Header>
+{#if !isLoginPage && !isRegisterPage}
+  <NavBar />
+{/if}
 
-<slot></slot>
+<main>
+  <slot></slot>
+</main>
 
-<Footer></Footer>
+{#if !isLoginPage && !isRegisterPage}
+  <Footer />
+{/if}
 
 <style>
 </style>

@@ -8,16 +8,25 @@
 ├── PROMPT.md
 ├── README.md
 ├── src
-│   ├── app.d.ts
-│   ├── app.html
-│   ├── lib
-│   │   ├── components
-│   │   │   └── NavBar.svelte
-│   │   └── index.ts
-│   └── routes
-│       └── +page.svelte
+│   ├── app.d.ts
+│   ├── app.html
+│   ├── global.css
+│   ├── lib
+│   │   ├── components
+│   │   │   ├── Footer.svelte
+│   │   │   ├── Header.svelte
+│   │   │   ├── NavBar.svelte
+│   │   │   └── SearchBar.svelte
+│   │   └── index.ts
+│   └── routes
+│       ├── +layout.svelte
+│       ├── login
+│       │   ├── +layout.svelte
+│       │   └── +page.svelte
+│       └── +page.svelte
 ├── static
-│   └── favicon.png
+│   ├── bakery_anime.jpg
+│   └── favicon.png
 ├── svelte.config.js
 ├── tsconfig.json
 └── vite.config.ts
@@ -34,16 +43,19 @@
 
 Je débute en SvelteJS, corrige mes erreurs et explique-moi tes décisions :
 
-- le dossier `components` est-il au bon endroit ? Si non, où se place-t-il ?
-- les composants `Header.svelte` et `Footer.svelte` doivent apparaîtrent dans chaque pages de l'application, où dois-je les appeler pour ça ?
-- crée le fichier `layout.svelte` et intègre-le à mon projet.
-- ajoute un menu burger dans mon composant `NavBar.svelte`, je veux qu'il apparaisse en responsive (ajoute les breakpoint nécessaires et qui respectent les tailles à suivre aujourd'hui).
-- si mon HTML est incorrect dans mes composants corrige-le/améliore-le.
+- j'ai cette structure de projet (cf : ## Structure de l'application)
+- 
+
+<!-- --------------------------------------------------------------------------------------- -->
 
 Je vais te partager des fichiers un par un, contente-toi de les garder en mémoire sans me donner de réponse.
 
 Garde-en mémoire ce fichier, ne me donne de réponse que lorsque je te formulai clairement ma demande.
 
-<!-- --------------------------------------------------------------------------------------- -->
+ J'aimerais que tu respectes ces consignes dans tes prochaines réponses :
 
-Partage-moi dans ta réponse uniquement les codes à modifier.
+- Partages uniquement le code à modifier/ajouter
+- Explique où ajouter le code
+- Propose un code flexible
+- Ajoute des commentaires claires et concis si tu partages du code (sois descriptif dans le ton)
+- N'invente rien, si tu n'as pas de solution explicites le

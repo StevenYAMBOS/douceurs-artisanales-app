@@ -1,0 +1,13 @@
+
+:root {
+  --mainWhite: #FDF7D9;
+  --mainBrown: #BE7408;
+  --mainGrey: #EAEAEA;
+  --mainPurple: #302424;
+
+  --title2: 20px;
+
+  --pagePadding: 0 40px;
+
+  --buttonBorderRadius: 50px;
+}

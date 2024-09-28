@@ -19,41 +19,41 @@
     />
   </div>
 
-  <!-- Menu burger -->
-  <div class="burger-menu" on:click={toggleMenu}>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
+  <!-- Menu burger responsive -->
+  <div class="burger-menu-icon" aria-hidden="true" on:click={toggleMenu}>
+    <span class="material-symbols-outlined" style="color: var(--mainWhite);">
+      menu
+    </span>
   </div>
 
   <!-- Conteneur des boutons -->
   <div class="nav-buttons" class:open={isMenuOpen}>
-    <!-- Bouton thèmes -->
+    <!-- Bouton Accueil -->
     <div class="nav-button">
-      <div id="theme-button">
-        <span class="material-symbols-outlined">
-          light_mode
-          </span>
-      </div>
+      <a href="/" id="auth-button">Accueil</a>
+    </div>
+
+    <!-- Bouton Contact -->
+    <div class="nav-button">
+      <a href="/contact" id="auth-button">Contact</a>
     </div>
 
     <!-- Bouton connexion -->
     <div class="nav-button">
       <a href="/login" id="auth-button">
-          <span class="material-symbols-outlined">
-            person
-            </span>
+        <span class="material-symbols-outlined">person</span>
       </a>
     </div>
   </div>
 </nav>
 
 <style>
+  @import "../../global.css";
+
   nav {
     width: 100%;
-    background-color: #f3eae4;
-    padding: 20px 0;
-    margin: 0 auto;
+    background-color: var(--mainPurple);
+    padding: 10px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -85,7 +85,7 @@
   }
 
   .nav-button {
-    margin-left: 20px;
+    /* margin-left: 20px; */
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -98,36 +98,41 @@
   }
 
   #auth-button {
-    color: #372221;
+    height: 100%;
+    color: var(--mainWhite);
     text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
   }
   #auth-button:hover {
-    opacity: 0.9;
+    color: var(--mainBrown);
+  }
+  #auth-button a span {
+    height: 100%;
+    text-align: center;
+  } 
+
+  /* Ajout de styles pour l'icône du menu burger */
+  .burger-menu-icon {
+    display: none;
+    cursor: pointer;
   }
 
-  /* Responsive styles */
   @media (max-width: 768px) {
-    .burger-menu {
-      display: flex;
+    /* Afficher l'icône burger uniquement pour les petits écrans */
+    .burger-menu-icon {
+      display: block;
     }
 
+    /* Masquer le menu traditionnel sur les petits écrans */
     .nav-buttons {
-      position: absolute;
-      top: 50px;
-      right: 0;
-      flex-direction: column;
-      align-items: flex-end;
-      background-color: transparent;
-      padding: 10px;
       display: none;
     }
 
     .nav-buttons.open {
       display: flex;
-    }
-
-    .nav-button {
-      margin-left: 0;
+      flex-direction: column;
     }
   }
 </style>

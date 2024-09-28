@@ -3,74 +3,70 @@
 
 <div id="searchbar">
   <form role="search">
-    <label for="search">Search for stuff</label>
+    <span>Trouvez la meilleure pâtisserie près de chez vous.</span>
     <input
       id="search"
       type="search"
-      placeholder="Arrondissement, Boulangerie..."
+      placeholder="Rechercher une boulangerie..."
       required
     />
-    <button type="submit">Go</button>
   </form>
 </div>
 
 <style>
+  @import "../../global.css";
   #searchbar {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
   }
-
   form {
     position: relative;
     width: 50%;
-    background: #000000;
-    border-radius: 15px;
+    height: 300px;
+    background: transparent;
+    border-radius: var(--buttonBorderRadius);
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4em;
   }
   input,
-  button {
-    height: var(--height);
-    font-family: var(--font-fam);
-    border: 0;
-    color: var(--color-dark);
-    font-size: 1.8rem;
-  }
   input[type="search"] {
     outline: 0;
     width: 100%;
-    background: var(--color-light);
+    height: 50px;
+    background-color: var(--mainWhite);
+    color: var(--mainBrown);
     padding: 0 1.6rem;
-    border-radius: var(--rad);
+    border: 2px var(--mainWhite) solid;
+    border-radius: 50px;
     appearance: none;
-    transition: all var(--dur) var(--bez);
+    transition: all;
+    opacity: 1;
     transition-property: width, border-radius;
     z-index: 1;
     position: relative;
   }
-  button {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: var(--btn-width);
-    font-weight: bold;
-    background: var(--color-brand);
-    border-radius: 0 var(--rad) var(--rad) 0;
-  }
   input:not(:placeholder-shown) {
-    border-radius: var(--rad) 0 0 var(--rad);
-    width: calc(100% - var(--btn-width));
-    /* + button {
-    display: block;
-  } */
+    border-radius: var(--buttonBorderRadius);
+    width: 100%;
+    color: var(--mainBrown);
   }
-  label {
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
-    padding: 0;
-    border: 0;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
+  input,
+  input[type="search"]::placeholder {
+    color: var(--mainPurple);
+    opacity: 0.5;
+  }
+  input[type="search"]:focus {
+    border-color: var(--mainBrown);
+  }
+  span {
+    color: var(--mainWhite);
+    font-size: var(--title2);
   }
 </style>
