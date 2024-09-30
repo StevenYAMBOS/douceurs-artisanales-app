@@ -1,4 +1,17 @@
-<script>
+<script lang="ts">
+  // import { createEventDispatcher } from "svelte";
+  // export let bakeries: any[] = [];
+  // let searchTerm = "";
+
+  // const dispatch = createEventDispatcher();
+
+  // // Filtrer les boulangeries en fonction du terme de recherche
+  // $: filteredBakeries = bakeries.filter(bakery =>
+  //   bakery.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+  // // Emettre un événement de recherche lorsque le terme change
+  // $: dispatch("search", searchTerm);
 </script>
 
 <div id="searchbar">
@@ -11,6 +24,19 @@
       required
     />
   </form>
+
+  <!-- Afficher les boulangeries filtrées -->
+  <!-- {#if filteredBakeries.length > 0}
+    <ul id="search-results">
+      {#each filteredBakeries as bakery}
+        <li>
+          <a href={`/bakery/${bakery.id}`}>{bakery.name}</a>
+        </li>
+      {/each}
+    </ul>
+  {:else if searchTerm}
+    <p>Aucune boulangerie trouvée.</p>
+  {/if} -->
 </div>
 
 <style>
@@ -68,5 +94,27 @@
   span {
     color: var(--mainWhite);
     font-size: var(--title2);
+  }
+
+    /* Style pour le menu déroulant des résultats de recherche */
+    #search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  #search-results li {
+    padding: 10px;
+    background: white;
+    border-bottom: 1px solid #ccc;
+  }
+  #search-results li a {
+    text-decoration: none;
+    color: black;
+  }
+  #search-results li:hover {
+    background: #f0f0f0;
   }
 </style>
