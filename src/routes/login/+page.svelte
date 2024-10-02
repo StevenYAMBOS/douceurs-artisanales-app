@@ -1,15 +1,83 @@
-<script>
+<!-- src/routes/login/+page.svelte  -->
+<script lang="ts">
+  import { PUBLIC_API_LOCAL } from "$env/static/public";
+  import { goto } from "$app/navigation";
+  import { setUser } from "@/userStore";
+
   let email = "";
   let password = "";
+  let passwordError = ""; // Pour stocker les erreurs de mot de passe
+  let showPopup = false; // Pour afficher ou non la popup
+  let popupMessage = ""; // Message de la popup (succès ou erreur)
+  let isError = false; // Pour distinguer succès ou erreur
+
+  const API = PUBLIC_API_LOCAL;
 
   // Fonction pour gérer la soumission du formulaire
-  /**
-   * @param {{ preventDefault: () => void; }} event
-   */
-  function handleLogin(event) {
+  async function handleLogin(event: Event) {
     event.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    // Validation du mot de passe
+    if (!validatePassword(password)) {
+      passwordError =
+        "Le mot de passe doit avoir au moins 10 caractères, inclure une majuscule, un chiffre, et un caractère spécial.";
+      return;
+    } else {
+      passwordError = ""; // Réinitialiser si le mot de passe est valide
+    }
+
+    const response = await fetch(`${API}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    if (response.ok) {
+      const { token, user: userData } = await response.json();
+      localStorage.setItem("token", token);
+
+      setUser(userData);
+      
+      
+      popupMessage = "Connexion réussie !";
+      isError = false; // Succès
+      showPopup = true; // Afficher la popup
+
+      // Masquer la popup après 3 secondes
+      setTimeout(() => {
+        showPopup = false;
+      }, 3000);
+
+      // Redirection après 1.5 secondes
+      setTimeout(() => {
+        goto("/"); // Redirection vers la page d'accueil
+      }, 1500);
+
+    } else {
+      // Récupérer le message d'erreur du back-end
+      const errorMessage = await response.text();
+      popupMessage =
+        errorMessage || "Erreur lors de la connexion. Veuillez réessayer.";
+      isError = true; // Erreur
+      showPopup = true; // Afficher la popup
+
+      // Masquer la popup après 3 secondes
+      setTimeout(() => {
+        showPopup = false;
+      }, 3000);
+    }
+  }
+
+  // Validation du mot de passe
+  function validatePassword(password: string) {
+    const regex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{10,}$/;
+    return regex.test(password);
   }
 </script>
 
@@ -64,6 +132,12 @@
         </a>
       </div>
     </div>
+
+    {#if showPopup}
+      <div class="popup {isError ? 'error' : 'success'}">
+        <p>{popupMessage}</p>
+      </div>
+    {/if}
 
     <!-- Image de fond à droite -->
     <div id="right-side" class="login-card"></div>
@@ -198,5 +272,28 @@
     background-position: center;
     background-size: cover;
     filter: brightness(60%);
+  }
+
+  .popup {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1em 2em;
+    border-radius: var(--buttonBorderRadius);
+    z-index: 1000;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .popup.success {
+    background-color: var(--mainGrey);
+    color: green;
+  }
+
+  .popup.error {
+    background-color: var(--mainGrey);
+    color: red;
   }
 </style>

@@ -44,7 +44,28 @@
 Je débute en SvelteJS, corrige mes erreurs et explique-moi tes décisions :
 
 - j'ai cette structure de projet (cf : ## Structure de l'application)
-- 
+
+Je vais créer une page profile pour mon utilisateur en SvelteJS.
+Est-ce que je peux faire un `GET` des informations de l'utilisateur connecté lors de la connexion pour pouvoir les utiliser à tout moment partout dans l'application ?
+
+- ADMIN : Développeurs de la plateforme, détient tout les droits sur l'application (`role="ADMIN"`)
+- OWNER : Artisan boulanger, peut créer/modifier/récupérer/supprimer sa boulangerie (`role=OWNER`)
+- USER : Utilisateur lambda qui consulte simplement l'application (`role=USER`)
+
+La page du profile est dynamique selon l'utilisateur qui est connecté.
+Je vais te partager ce qui doit être afficher pour chaque role.
+Nous allons commencer avec les ADMIN.
+
+ADMIN :
+
+- un menu à gauche et les informations à droite
+- le menu à gauche contient les sections suivantes -> Utilisateurs (liste de tous les utilisateurs de l'application), Boulangeries (liste de toutes les boulangeries de l'application), 
+
+USER :
+
+- un menu à gauche et les informations à droite
+- le menu à gauche contient les sections suivantes -> Profil, Favoris, Commentaires, Changement de statut
+- le menu à droite contient les éléments suivant -> Profil : Image de profil, Nom, Prénom, Changer de mot de passe
 
 <!-- --------------------------------------------------------------------------------------- -->
 

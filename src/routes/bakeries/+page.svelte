@@ -70,7 +70,7 @@
 
         <!-- Informations supplémentaires -->
         <div class="infos-wrapper">
-          <p style="font-size: 10px;">{bakery.description}</p>
+          <!-- <p style="font-size: 10px;">{bakery.description}</p> -->
           <div class="socials">
             <a
               style="text-transform: none;"
@@ -161,7 +161,7 @@
   }
 
   .cover-wrapper {
-    height: 50%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -202,7 +202,7 @@
   }
 
   .infos-wrapper {
-    height: 50%;
+    height: 20%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

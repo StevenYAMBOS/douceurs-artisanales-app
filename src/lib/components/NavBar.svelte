@@ -1,7 +1,16 @@
 <!-- src/lib/components/NavBar.svelte -->
 
 <script lang="ts">
+    import { user } from "@/userStore"; // Importer le store utilisateur
+
   let isMenuOpen = false;
+  let currentUser: any;
+
+    // S'abonner au store pour obtenir les informations utilisateur
+    user.subscribe(value => {
+    currentUser = value;
+  });
+
 
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
@@ -38,12 +47,20 @@
       <a href="/contact" id="auth-button">Contact</a>
     </div>
 
+    {#if currentUser}
+    <div class="nav-button">
+      <a href="/profile" id="auth-button">
+        <img class="profilePicture" src={currentUser?.profilePicture || "https://avatars.githubusercontent.com/u/95619191?v=4"} width="30" alt="Profile" />
+      </a>
+    </div>
+    {:else}
     <!-- Bouton connexion -->
     <div class="nav-button">
       <a href="/login" id="auth-button">
         <span class="material-symbols-outlined">person</span>
       </a>
     </div>
+    {/if}
   </div>
 </nav>
 
@@ -111,7 +128,12 @@
   #auth-button a span {
     height: 100%;
     text-align: center;
-  } 
+  }
+
+  .profilePicture {
+    border-radius: var(--buttonBorderRadius);
+    height: 30px;
+  }
 
   /* Ajout de styles pour l'icône du menu burger */
   .burger-menu-icon {
