@@ -1,16 +1,15 @@
 <!-- src/lib/components/NavBar.svelte -->
 
 <script lang="ts">
-    import { user } from "@/userStore"; // Importer le store utilisateur
+  import { user } from "@/userStore"; // Importer le store utilisateur
 
   let isMenuOpen = false;
   let currentUser: any;
 
-    // S'abonner au store pour obtenir les informations utilisateur
-    user.subscribe(value => {
+  // S'abonner au store pour obtenir les informations utilisateur
+  user.subscribe((value) => {
     currentUser = value;
   });
-
 
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
@@ -48,18 +47,30 @@
     </div>
 
     {#if currentUser}
-    <div class="nav-button">
-      <a href="/profile" id="auth-button">
-        <img class="profilePicture" src={currentUser?.profilePicture || "https://avatars.githubusercontent.com/u/95619191?v=4"} width="30" alt="Profile" />
-      </a>
-    </div>
+      <div class="nav-button">
+        <a href="/profile">
+          <img
+            class="profilePicture"
+            src={currentUser?.profilePicture ||
+              "https://avatars.githubusercontent.com/u/95619191?v=4"}
+            width="30"
+            alt="Profile"
+          />
+        </a>
+
+        <!-- <a href="/login" class="test">
+          <span class="material-symbols-outlined">
+            logout
+          </span>
+        </a> -->
+      </div>
     {:else}
-    <!-- Bouton connexion -->
-    <div class="nav-button">
-      <a href="/login" id="auth-button">
-        <span class="material-symbols-outlined">person</span>
-      </a>
-    </div>
+      <!-- Bouton connexion -->
+      <div class="nav-button">
+        <a href="/login" id="auth-button">
+          <span class="material-symbols-outlined">person</span>
+        </a>
+      </div>
     {/if}
   </div>
 </nav>

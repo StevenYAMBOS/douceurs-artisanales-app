@@ -3,15 +3,28 @@
   import { PUBLIC_API_LOCAL } from "$env/static/public";
   import { goto } from "$app/navigation";
   import { setUser } from "@/userStore";
+  import { apiFetch } from "@/api";
 
   let email = "";
   let password = "";
+  let showPassword = false; // Variable pour contrôler la visibilité du mot de passe
   let passwordError = ""; // Pour stocker les erreurs de mot de passe
   let showPopup = false; // Pour afficher ou non la popup
   let popupMessage = ""; // Message de la popup (succès ou erreur)
   let isError = false; // Pour distinguer succès ou erreur
+  let passwordInput: any; // Référence à l'élément input du mot de passe
 
   const API = PUBLIC_API_LOCAL;
+
+  // Fonction pour basculer la visibilité du mot de passe
+  function togglePasswordVisibility() {
+    showPassword = !showPassword;
+  }
+
+  // Gestion manuelle de la mise à jour de la valeur du mot de passe
+  const handlePasswordInput = (e: any) => {
+    password = e.target.value;
+  };
 
   // Fonction pour gérer la soumission du formulaire
   async function handleLogin(event: Event) {
@@ -26,11 +39,8 @@
       passwordError = ""; // Réinitialiser si le mot de passe est valide
     }
 
-    const response = await fetch(`${API}/auth/login`, {
+    const response = await apiFetch(`${API}/auth/login`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({
         email,
         password,
@@ -42,8 +52,7 @@
       localStorage.setItem("token", token);
 
       setUser(userData);
-      
-      
+
       popupMessage = "Connexion réussie !";
       isError = false; // Succès
       showPopup = true; // Afficher la popup
@@ -57,7 +66,6 @@
       setTimeout(() => {
         goto("/"); // Redirection vers la page d'accueil
       }, 1500);
-
     } else {
       // Récupérer le message d'erreur du back-end
       const errorMessage = await response.text();
@@ -110,16 +118,25 @@
         />
 
         <label for="password">Mot de passe</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Votre mot de passe"
-          bind:value={password}
-          required
-        />
+        <div class="password-wrapper">
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            placeholder="Votre mot de passe"
+            on:input={handlePasswordInput}
+            required
+          />
+          <span
+            class="material-symbols-outlined"
+            on:click={togglePasswordVisibility}
+            style="cursor: pointer;"
+          >
+            {showPassword ? "visibility_off" : "visibility"}
+          </span>
+        </div>
 
-        <input type="submit" value="Se connecter" />
         <!-- Bouton 'Se connecter' -->
+        <input type="submit" value="Se connecter" />
       </form>
 
       <div class="links">
@@ -197,8 +214,8 @@
   }
 
   /* Styles des champs input */
-  input[type="email"],
-  input[type="password"] {
+  input[type="email"]
+  /* input[type="password"] */ {
     margin-bottom: 2.5em;
     padding: 0.75rem;
     font-size: 1rem;
@@ -209,6 +226,46 @@
     border-radius: var(--buttonBorderRadius);
     outline: none;
     transition: border-color 0.3s ease;
+  }
+
+  /* Supprimer la bordure en focus pour le champ mot de passe */
+  input[type="password"],
+  input[type="text"] {
+    background-color: transparent;
+    border: none; /* Supprime la bordure */
+    width: 100%;
+    outline: none;
+    color: var(--mainWhite);
+    font-size: 1rem;
+  }
+
+  input[type="password"]:focus,
+  input[type="text"]:focus {
+    border: none; /* Assurez-vous que la bordure est également retirée lors du focus */
+    outline: none;
+  }
+
+  /* Style de la wrapper de l'input mot de passe */
+  .password-wrapper {
+    display: flex;
+    align-items: center; /* Aligne verticalement l'input et l'icône */
+    background-color: transparent;
+    border: 3px solid var(--mainWhite); /* Garder la bordure autour de l'input et de l'icône */
+    border-radius: var(--buttonBorderRadius);
+    padding: 0.75rem;
+    transition: border-color 0.3s ease;
+    margin-bottom: 2.5em;
+  }
+
+  #password {
+    border: none;
+  }
+
+  /* Style de l'icône pour qu'elle soit cliquable */
+  .password-wrapper span {
+    margin-left: 10px; /* Espace entre l'input et l'icône */
+    cursor: pointer;
+    color: var(--mainWhite);
   }
 
   /* Couleur de focus */

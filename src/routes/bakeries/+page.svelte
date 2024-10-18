@@ -5,6 +5,7 @@
   import { onMount } from "svelte";
   import { PUBLIC_API_LOCAL } from "$env/static/public";
   import { page } from "$app/stores";
+  import { goto } from "$app/navigation";
 
   const API = PUBLIC_API_LOCAL;
   let bakeries: any[] = [];
@@ -21,6 +22,11 @@
       console.log(bakeries);
     }
   });
+
+  // Fonction pour rediriger vers la page de détails d'une boulangerie
+  function goToBakery(id: string, name : string) {
+    goto(`/bakery/${id}`);// Rediriger vers la route dynamique
+  }
 </script>
 
 <body id="bakeries-body" style="margin: 0 auto;">
@@ -38,16 +44,16 @@
     </div>
 
     <section id="list-of-bakeries-wrapper">
-      <div class="bakery-card">
+      <div class="bakery-card" on:click={() => goToBakery(bakery?.id, bakery?.name)}>
         <!-- Image et nom de la boulangerie -->
         <div
           class="cover-wrapper"
-          style="background-image: url({bakery.cover});"
+          style="background-image: url({bakery?.cover});"
         >
           <div class="buttons">
             <img
-              src={bakery.logo}
-              alt="Logo de {bakery.name}"
+              src={bakery?.logo}
+              alt="Logo de {bakery?.name}"
               height="50"
               style="border-radius: 50%; cursor: pointer;"
             />
@@ -63,18 +69,18 @@
           </div>
 
           <div class="name">
-            <span>{bakery.name}</span>
+            <span>{bakery?.name}</span>
             <!-- Nom de la boulangerie -->
           </div>
         </div>
 
         <!-- Informations supplémentaires -->
         <div class="infos-wrapper">
-          <!-- <p style="font-size: 10px;">{bakery.description}</p> -->
+          <!-- <p style="font-size: 10px;">{bakery?.description}</p> -->
           <div class="socials">
             <a
               style="text-transform: none;"
-              href={bakery.instagram}
+              href={bakery?.instagram}
               target="_blank"
               ><img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/768px-Instagram_icon.png"
@@ -84,7 +90,7 @@
             >
           </div>
           <div class="multiple-locations">
-            {bakery.multipleLocations
+            {bakery?.multipleLocations
               ? "Plusieurs adresses"
               : "Une seule adresse"}
           </div>

@@ -4,6 +4,7 @@
   import SearchBar from "@/components/SearchBar.svelte";
   import { onMount } from "svelte";
   import { PUBLIC_API_LOCAL } from "$env/static/public";
+  import { clearUser } from "@/userStore";
 
   const API = PUBLIC_API_LOCAL;
 
@@ -172,16 +173,24 @@
 
   let bakeries : any[] = [];
 
-    // Récupérer les données une fois le composant monté (côté client uniquement)
-    onMount(async () => {
+  // Fonction pour gérer les erreurs d'authentification
+  async function fetchBakeries() {
     try {
       const response = await fetch(`${API}/bakery/get-all`);
-      bakeries = await response.json();
-      console.log(bakeries);
-      
+      if (response.status === 401) {
+        // Si une erreur d'authentification survient, déconnecter l'utilisateur
+        clearUser(); 
+        // Peut-être rediriger vers la page de login
+      } else {
+        bakeries = await response.json();
+      }
     } catch (error) {
       console.error("Erreur lors de la récupération des boulangeries", error);
     }
+  }
+
+  onMount(() => {
+    fetchBakeries();
   });
 </script>
 
