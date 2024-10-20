@@ -14,6 +14,7 @@
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@tailwindcss/typography": "^0.5.14",
+		"@types/google.maps": "^3.58.1",
 		"autoprefixer": "^10.4.20",
 		"clsx": "^2.1.1",
 		"postcss": "^8.4.47",
@@ -27,6 +28,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@googlemaps/js-api-loader": "^1.16.8",
 		"bits-ui": "^0.21.13",
 		"svelte-carousel": "^1.0.25"
 	}

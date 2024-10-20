@@ -164,6 +164,7 @@
     max-height: 300px;
     border-radius: 10px;
     background-color: var(--mainWhite);
+    cursor: pointer;
   }
 
   .cover-wrapper {
